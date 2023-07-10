@@ -260,9 +260,10 @@ check_random_arg(mrb_state *mrb, mrb_value r)
 static mrb_value
 mrb_ary_shuffle_bang(mrb_state *mrb, mrb_value ary)
 {
-  max = RARRAY_LEN(ary)
+  mrb_int max;
+  max = RARRAY_LEN(ary);
   if (max > 1) {
-    mrb_int i, max;
+    mrb_int i, j;
     rand_state *random;
     mrb_sym kname = MRB_SYM(random);
     mrb_value r;
@@ -272,7 +273,6 @@ mrb_ary_shuffle_bang(mrb_state *mrb, mrb_value ary)
     random = check_random_arg(mrb, r);
     mrb_ary_modify(mrb, mrb_ary_ptr(ary));
     for (i = max - 1; i > 0; i--)  {
-      mrb_int j;
       mrb_value *ptr = RARRAY_PTR(ary);
       mrb_value tmp;
 
